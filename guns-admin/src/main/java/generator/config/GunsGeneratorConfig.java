@@ -13,7 +13,7 @@ public class GunsGeneratorConfig extends AbstractGeneratorConfig {
 
     @Override
     protected void globalConfig() {
-        globalConfig.setOutputDir("D:\\ideaSpace\\guns\\guns-admin\\src\\main\\java");
+        globalConfig.setOutputDir("E:\\daima");
         globalConfig.setFileOverride(true);
         globalConfig.setEnableCache(false);
         globalConfig.setBaseResultMap(true);
@@ -34,7 +34,7 @@ public class GunsGeneratorConfig extends AbstractGeneratorConfig {
     @Override
     protected void strategyConfig() {
         //strategy.setTablePrefix(new String[]{"_"});// 此处可以修改为您的表前缀
-        strategyConfig.setInclude(new String[]{"my_order"});
+        strategyConfig.setInclude(new String[]{"outbound"});
         strategyConfig.setNaming(NamingStrategy.underline_to_camel);
     }
 
@@ -48,12 +48,12 @@ public class GunsGeneratorConfig extends AbstractGeneratorConfig {
 
     @Override
     protected void contextConfig() {
-        contextConfig.setBizChName("记账管理");
-        contextConfig.setBizEnName("order");
-        contextConfig.setModuleName("system");
-        contextConfig.setProjectPath("D:\\ideaSpace\\guns\\guns-admin");
-        contextConfig.setEntityName("MyOrder");
-        sqlConfig.setParentMenuName("系统管理");
+        contextConfig.setBizChName("出库单");
+        contextConfig.setBizEnName("outbound");
+        contextConfig.setModuleName("outbound");
+        contextConfig.setProjectPath("E:\\daimas");
+        contextConfig.setEntityName("Outbound");
+        sqlConfig.setParentMenuName("出库单");
 
         /**
          * mybatis-plus 生成器开关
