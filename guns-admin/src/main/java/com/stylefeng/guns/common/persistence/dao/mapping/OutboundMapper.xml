@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stylefeng.guns.common.persistence.dao.OutboundMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.stylefeng.guns.common.persistence.model.Outbound">
+        <id column="id" property="id"/>
+        <result column="outboundno" property="outboundno"/>
+        <result column="customername" property="customername"/>
+        <result column="customerreceive" property="customerreceive"/>
+        <result column="warehousedelivery" property="warehousedelivery"/>
+        <result column="outbounddate" property="outbounddate"/>
+        <result column="createdate" property="createdate"/>
+        <result column="creater" property="creater"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, outboundno, customername, customerreceive, warehousedelivery, outbounddate, createdate, creater
+    </sql>
+
+    <select id="getOutboundPage" resultType="map" parameterType="com.baomidou.mybatisplus.plugins.Page">
+        select * from outbound where 1 = 1
+        <if test="beginTime != null and beginTime !=''">
+            and createdate >= CONCAT(#{beginTime},' 00:00:00')
+        </if>
+        <if test="endTime != null and endTime != ''">
+            and CONCAT(#{endTime},' 23:59:59')>=createdate
+        </if>
+        <if test="outboundno != null and outboundno !=''">
+            and outboundno like CONCAT('%',#{outboundno},'%')
+        </if>
+        <choose>
+            <when test="orderByField != null and orderByField !=''">
+                <choose>
+                    <when test="isAsc == true">
+                        order by ${orderByField} ASC
+                    </when>
+                    <otherwise>
+                        order by ${orderByField} DESC
+                    </otherwise>
+                </choose>
+            </when>
+            <otherwise>
+                order by createdate DESC
+            </otherwise>
+        </choose>
+    </select>
+    <select id="selectDetail" resultType="com.stylefeng.guns.common.persistence.model.OutboundDetail"
+            parameterType="map">
+        select * from outbounddetail where outboundid = #{outboundId}
+    </select>
+    <select id="loadById" resultType="com.stylefeng.guns.common.persistence.model.Outbound" parameterType="map">
+        select * from outbound where id = #{id}
+    </select>
+    <insert id="insertDetail" parameterType="list">
+        insert into outbounddetail (outboundid,materialno,materialname,unit,number,pinumber,jiannumber)
+        VALUES
+        <foreach collection="detail" item="item" separator=",">
+            (#{item.outboundid},#{item.materialno},#{item.materialname},#{item.unit},#{item.number},#{item.pinumber},#{item.jiannumber})
+        </foreach>
+    </insert>
+    <delete id="deleteDetail" parameterType="map">
+        delete from outbounddetail where outboundid = #{outboundId}
+    </delete>
+
+
+</mapper>

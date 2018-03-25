@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stylefeng.guns.common.persistence.dao.InboundMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.stylefeng.guns.common.persistence.model.Inbound">
+        <id column="id" property="id"/>
+        <result column="inboundno" property="inboundno"/>
+        <result column="charger" property="charger"/>
+        <result column="agent" property="agent"/>
+        <result column="receiver" property="receiver"/>
+        <result column="inbounddate" property="inbounddate"/>
+        <result column="createdate" property="createdate"/>
+        <result column="creater" property="creater"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, inboundno, charger, agent, receiver, inbounddate, createdate, creater
+    </sql>
+
+    <select id="getInboundPage" resultType="map" parameterType="com.baomidou.mybatisplus.plugins.Page">
+        select * from inbound where 1 = 1
+        <if test="beginTime != null and beginTime !=''">
+            and createdate >= CONCAT(#{beginTime},' 00:00:00')
+        </if>
+        <if test="endTime != null and endTime != ''">
+            and CONCAT(#{endTime},' 23:59:59')>=createdate
+        </if>
+        <if test="inboundno != null and inboundno !=''">
+            and inboundno like CONCAT('%',#{inboundno},'%')
+        </if>
+        <choose>
+            <when test="orderByField != null and orderByField !=''">
+                <choose>
+                    <when test="isAsc == true">
+                        order by ${orderByField} ASC
+                    </when>
+                    <otherwise>
+                        order by ${orderByField} DESC
+                    </otherwise>
+                </choose>
+            </when>
+            <otherwise>
+                order by createdate DESC
+            </otherwise>
+        </choose>
+    </select>
+    <select id="selectDetail" resultType="com.stylefeng.guns.common.persistence.model.InboundDetail"
+            parameterType="map">
+	select * from inbounddetail where inboundid = #{inboundId}
+	</select>
+    <select id="loadById" resultType="com.stylefeng.guns.common.persistence.model.Inbound" parameterType="map">
+		select * from inbound where id = #{id}
+	</select>
+    <insert id="insertDetail" parameterType="list">
+        insert into inbounddetail (inboundid,materialno,materialname,unit,number,pinumber,jiannumber)
+        VALUES
+        <foreach collection="detail" item="item" separator=",">
+            (#{item.inboundid},#{item.materialno},#{item.materialname},#{item.unit},#{item.number},#{item.pinumber},#{item.jiannumber})
+        </foreach>
+    </insert>
+    <delete id="deleteDetail" parameterType="map">
+		delete from inbounddetail where inboundid = #{inboundId}
+	</delete>
+
+</mapper>

@@ -1,0 +1,109 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal" id="outboundInfoForm">
+            <input type="hidden" id="id" value="${outbound.id}">
+            <input type="hidden" id="itemSize" value="${outboundDetail.~size!0}">
+            <div class="row">
+                <div class="col-sm-12" id="itemsArea">
+                    <div class="form-group">
+                        <div class="col-sm-6 b-r">
+                            <#input id="customername" name="客户单位名称" underline="false" value="${outbound.customername}"/>
+                            <#input id="customerreceive" name="客户提货" underline="false" value="${outbound.customerreceive}"/>
+                        </div>
+                        <div class="col-sm-6">
+                            <#input id="warehousedelivery" name="仓库发货" underline="false" value="${outbound.warehousedelivery}"/>
+                            <#input id="outbounddate" name="出库日期" underline="false" type="date"
+                                    clickFun="laydate({istime: false, format: 'YYYY-MM-DD'})" value="${outbound.outbounddate}"/>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="col-wh-20" style="padding-left: 60px">
+                        品号
+                    </div>
+                    <div class="col-wh-20" style="padding-left: 60px">
+                        品名
+                    </div>
+                    <div class="col-wh-12" style="padding-left: 20px">
+                        计量单位
+                    </div>
+                    <div class="col-wh-12" style="padding-left: 40px">
+                        数量
+                    </div>
+                    <div class="col-wh-12" style="padding-left: 40px">
+                        匹数
+                    </div>
+                    <div class="col-wh-12" style="padding-left: 40px">
+                        件数
+                    </div>
+                    <div class="col-wh-12" style="padding-left: 30px">
+                        操作
+                    </div>
+                    @for(item in outboundDetail){
+                    <div class="form-group" name="outboundItem" id="outboundItem{itemLP.index}">
+                        <div class="col-wh-20">
+                            <input class="form-control" type="text" name="materialno" value="${item.materialno}">
+                        </div>
+                        <div class="col-wh-20">
+                            <input class="form-control" type="text" name="materialname" value="${item.materialname}">
+                        </div>
+                        <div class="col-wh-12">
+                            <input class="form-control" type="text" name="unit" value="${item.unit}">
+                        </div>
+                        <div class="col-wh-12">
+                            <input class="form-control" type="number" name="number" value="${item.number}">
+                        </div>
+                        <div class="col-wh-12">
+                            <input class="form-control" type="number" name="pinumber" value="${item.pinumber}">
+                        </div>
+                        <div class="col-wh-12">
+                            <input class="form-control" type="number" name="jiannumber" value="${item.jiannumber}">
+                        </div>
+                        <div class="col-wh-12" style="margin-top: 5px">
+                            <a btnCss="danger" href="#" name="删除" id="cancel{itemLP.index}" icon="fa-remove"
+                               onclick="OutboundInfoDlg.deleteItem(event)" value="删除">删除</a>
+                        </div>
+                    </div>
+                    @}
+                    </input>
+                </div>
+            </div>
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="增加" icon="fa-plus" clickFun="OutboundInfoDlg.addItem()"/>
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="OutboundInfoDlg.editSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="OutboundInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/template" id="itemTemplate">
+        <div class="form-group" name="outboundItem" id="outboundItem">
+            <div class="col-wh-20">
+                <input class="form-control" type="text" name="materialno">
+            </div>
+            <div class="col-wh-20">
+                <input class="form-control" type="text" name="materialname">
+            </div>
+            <div class="col-wh-12">
+                <input class="form-control" type="text" name="unit">
+            </div>
+            <div class="col-wh-12">
+                <input class="form-control" type="number" name="number">
+            </div>
+            <div class="col-wh-12">
+                <input class="form-control" type="number" name="pinumber">
+            </div>
+            <div class="col-wh-12">
+                <input class="form-control" type="number" name="jiannumber">
+            </div>
+            <div class="col-wh-12" style="margin-top: 5px">
+                <a btnCss="danger" href="#" name="删除" id="cancel" icon="fa-remove"
+                   onclick="OutboundInfoDlg.deleteItem(event)" value="删除">删除</a>
+            </div>
+        </div>
+    </script>
+
+    <script src="${ctxPath}/static/modular/outbound/outbound/outbound_info.js"></script>
+    @}
