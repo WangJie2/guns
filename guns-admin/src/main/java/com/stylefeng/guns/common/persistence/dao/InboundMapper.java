@@ -1,6 +1,7 @@
 package com.stylefeng.guns.common.persistence.dao;
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.stylefeng.guns.common.persistence.dto.InboundDto;
 import com.stylefeng.guns.common.persistence.model.Inbound;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.stylefeng.guns.common.persistence.model.InboundDetail;
@@ -28,4 +29,6 @@ public interface InboundMapper extends BaseMapper<Inbound> {
     Inbound loadById(@Param("id") Integer id);
 
     int deleteDetail(@Param("inboundId") Integer inboundId);
+
+    List<InboundDto> getInboundDtoList(Map map);
 }

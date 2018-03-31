@@ -7,21 +7,23 @@ import com.stylefeng.guns.common.annotion.Permission;
 import com.stylefeng.guns.common.constant.factory.PageFactory;
 import com.stylefeng.guns.common.exception.BizExceptionEnum;
 import com.stylefeng.guns.common.exception.BussinessException;
+import com.stylefeng.guns.common.persistence.dto.InboundDto;
 import com.stylefeng.guns.common.persistence.model.Inbound;
 import com.stylefeng.guns.common.persistence.model.InboundDetail;
 import com.stylefeng.guns.core.base.controller.BaseController;
 import com.stylefeng.guns.core.log.LogObjectHolder;
 import com.stylefeng.guns.core.util.ToolUtil;
+import com.stylefeng.guns.core.util.office.FileUtils;
 import com.stylefeng.guns.modular.inbound.service.IInboundService;
 import com.stylefeng.guns.modular.system.warpper.InboundWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -80,6 +82,23 @@ public class InboundController extends BaseController {
         List<Map<String, Object>> result = inboundService.getInboundPage(page, beginTime, endTime, inboundno, page.getOrderByField(), page.isAsc());
         page.setRecords((List<Inbound>) new InboundWrapper(result).warp());
         return super.packForBT(page);
+    }
+
+    /**
+     * 导出入库单列表
+     */
+    @RequestMapping(value = "/export")
+    @Permission
+    @ResponseBody
+    public void export(HttpServletRequest request, HttpServletResponse response, @RequestParam(required = false) String beginTime, @RequestParam(required = false) String endTime, @RequestParam(required = false) String inboundno) {
+        Map<String, Object> param = new HashMap();
+        param.put("beginTime", beginTime);
+        param.put("endTime", endTime);
+        param.put("inboundno", inboundno);
+        List<InboundDto> result = inboundService.getInboundDtoList(param);
+        String[] headers = {"入库单号", "负责人", "进货经办人", "仓库收货人", "入库日期", "品号", "品名", "计量单位", "数量", "匹数", "件数"};
+        String[] fieldNames = {"inboundno", "charger", "agent", "receiver", "inbounddate", "materialno", "materialname", "unit", "number", "pinumber", "jiannumber"};
+        FileUtils.exportTableWithData("入库单", "入库单", headers, fieldNames, result, request, response);
     }
 
     /**

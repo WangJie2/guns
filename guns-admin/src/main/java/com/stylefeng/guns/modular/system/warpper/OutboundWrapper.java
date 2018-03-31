@@ -2,7 +2,9 @@ package com.stylefeng.guns.modular.system.warpper;
 
 import com.stylefeng.guns.common.constant.factory.ConstantFactory;
 import com.stylefeng.guns.core.base.warpper.BaseControllerWarpper;
+import com.stylefeng.guns.core.util.GunDateUtil;
 
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -21,6 +23,7 @@ public class OutboundWrapper extends BaseControllerWarpper {
     public void warpTheMap(Map<String, Object> map) {
         Integer creater = Integer.parseInt(map.get("creater").toString());
         map.put("createrName", ConstantFactory.me().getUserNameById(creater));
+        map.put("outbounddateStr", GunDateUtil.getDateString((Date) map.get("outbounddate")));
     }
 
 }

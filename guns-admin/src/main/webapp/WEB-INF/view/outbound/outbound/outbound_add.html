@@ -7,32 +7,53 @@
                 <div class="col-sm-12" id="itemsArea">
                     <div class="form-group">
                         <div class="col-sm-6 b-r">
-                            <#input id="customername" name="客户单位名称" underline="false"/>
-                            <#input id="customerreceive" name="客户提货" underline="false"/>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label"><span style="color: red">*</span>客户单位名称</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" id="customername" name="customername" type="text">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">客户提货</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" id="customerreceive" name="customerreceive" type="text">
+                                </div>
+                            </div>
                         </div>
                         <div class="col-sm-6">
-                            <#input id="warehousedelivery" name="仓库发货" underline="false"/>
-                            <#input id="outbounddate" name="出库日期" underline="false" type="date"
-                                    clickFun="laydate({istime: false, format: 'YYYY-MM-DD'})"/>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">仓库发货</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" id="warehousedelivery" name="warehousedelivery"
+                                           type="text">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label"><span style="color: red">*</span>出库日期</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" id="outbounddate" name="outbounddate" type="date"
+                                           onclick="laydate({istime: false, format: 'YYYY-MM-DD'})">
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="hr-line-dashed"></div>
-                    <div class="col-wh-20" style="padding-left: 60px">
+                    <div class="col-wh-20" style="padding-left: 80px">
                         品号
                     </div>
-                    <div class="col-wh-20" style="padding-left: 60px">
+                    <div class="col-wh-20" style="padding-left: 80px">
                         品名
                     </div>
-                    <div class="col-wh-12" style="padding-left: 20px">
+                    <div class="col-wh-12" style="padding-left: 40px">
                         计量单位
                     </div>
-                    <div class="col-wh-12" style="padding-left: 40px">
+                    <div class="col-wh-12" style="padding-left: 50px">
                         数量
                     </div>
-                    <div class="col-wh-12" style="padding-left: 40px">
+                    <div class="col-wh-12" style="padding-left: 60px">
                         匹数
                     </div>
-                    <div class="col-wh-12" style="padding-left: 40px">
+                    <div class="col-wh-12" style="padding-left:60px">
                         件数
                     </div>
                     <div class="col-wh-12" style="padding-left: 30px">

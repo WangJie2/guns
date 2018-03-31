@@ -19,7 +19,7 @@ Inbound.initColumn = function () {
         {title: '负责人', field: 'charger', align: 'center', valign: 'middle', sortable: true},
         {title: '进货经办人', field: 'agent', align: 'center', valign: 'middle', sortable: true},
         {title: '仓库收货人', field: 'receiver', align: 'center', valign: 'middle', sortable: true},
-        {title: '入库日期', field: 'inbounddate', align: 'center', valign: 'middle', sortable: true},
+        {title: '入库日期', field: 'inbounddateStr', align: 'center', valign: 'middle', sortable: true},
         {title: '创建日期', field: 'createdate', align: 'center', valign: 'middle', sortable: true},
         {title: '创建人', field: 'createrName', align: 'center', valign: 'middle', sortable: false}
     ];
@@ -46,7 +46,7 @@ Inbound.openAddInbound = function () {
     var index = layer.open({
         type: 2,
         title: '添加入库单',
-        area: ['900px', '420px'], //宽高
+        area: ['1200px', '460px'], //宽高
         fix: false, //不固定
         maxmin: true,
         content: Feng.ctxPath + '/inbound/inbound_add'
@@ -62,7 +62,7 @@ Inbound.openInboundDetail = function () {
         var index = layer.open({
             type: 2,
             title: '入库单详情',
-            area: ['900px', '420px'], //宽高
+            area: ['1200px', '460px'], //宽高
             fix: false, //不固定
             maxmin: true,
             content: Feng.ctxPath + '/inbound/inbound_update/' + Inbound.seItem.id
@@ -89,6 +89,18 @@ Inbound.delete = function () {
         Feng.confirm("是否刪除该入库单?", operation);
     }
 };
+
+
+/**
+ * 导出入库单
+ */
+$("#export").click(function () {
+    var beginTime = $("#beginTime").val();
+    var endTime = $("#endTime").val();
+    var inboundno = $("#inboundno").val();
+    $("#export").attr("href", "/inbound/export?beginTime=" + beginTime + "&endTime=" + endTime + "&inboundno=" + inboundno);
+    $("#export").submit();
+});
 
 /**
  * 查询入库单列表

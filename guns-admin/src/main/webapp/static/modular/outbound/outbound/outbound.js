@@ -19,7 +19,7 @@ Outbound.initColumn = function () {
         {title: '客户单位名称', field: 'customername', align: 'center', valign: 'middle', sortable: true},
         {title: '客户提货', field: 'customerreceive', align: 'center', valign: 'middle', sortable: true},
         {title: '仓库发货', field: 'warehousedelivery', align: 'center', valign: 'middle', sortable: true},
-        {title: '出库日期', field: 'outbounddate', align: 'center', valign: 'middle', sortable: true},
+        {title: '出库日期', field: 'outbounddateStr', align: 'center', valign: 'middle', sortable: true},
         {title: '创建日期', field: 'createdate', align: 'center', valign: 'middle', sortable: true},
         {title: '创建人', field: 'createrName', align: 'center', valign: 'middle', sortable: false}
     ];
@@ -46,7 +46,7 @@ Outbound.openAddOutbound = function () {
     var index = layer.open({
         type: 2,
         title: '添加出库单',
-        area: ['900px', '420px'], //宽高
+        area: ['1200px', '460px'], //宽高
         fix: false, //不固定
         maxmin: true,
         content: Feng.ctxPath + '/outbound/outbound_add'
@@ -62,7 +62,7 @@ Outbound.openOutboundDetail = function () {
         var index = layer.open({
             type: 2,
             title: '出库单详情',
-            area: ['900px', '420px'], //宽高
+            area: ['1200px', '460px'], //宽高
             fix: false, //不固定
             maxmin: true,
             content: Feng.ctxPath + '/outbound/outbound_update/' + Outbound.seItem.id
@@ -89,6 +89,17 @@ Outbound.delete = function () {
         Feng.confirm("是否刪除该出库单?", operation);
     }
 };
+
+/**
+ * 导出入库单
+ */
+$("#export").click(function () {
+    var beginTime = $("#beginTime").val();
+    var endTime = $("#endTime").val();
+    var outboundno = $("#outboundno").val();
+    $("#export").attr("href", "/outbound/export?beginTime=" + beginTime + "&endTime=" + endTime + "&outboundno=" + outboundno);
+    $("#export").submit();
+});
 
 /**
  * 查询出库单列表

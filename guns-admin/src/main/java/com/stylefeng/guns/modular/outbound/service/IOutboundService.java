@@ -2,6 +2,7 @@ package com.stylefeng.guns.modular.outbound.service;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.IService;
+import com.stylefeng.guns.common.persistence.dto.OutboundDto;
 import com.stylefeng.guns.common.persistence.model.Outbound;
 import com.stylefeng.guns.common.persistence.model.OutboundDetail;
 
@@ -30,4 +31,6 @@ public interface IOutboundService extends IService<Outbound> {
     int deleteOutboundById(Integer outboundId);
 
     int updateOutbound(Outbound outbound, List<OutboundDetail> detail);
+
+    List<OutboundDto> getOutboundDtoList(Map map);
 }

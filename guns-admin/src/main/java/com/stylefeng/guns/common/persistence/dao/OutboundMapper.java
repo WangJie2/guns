@@ -1,8 +1,9 @@
 package com.stylefeng.guns.common.persistence.dao;
 
-import com.baomidou.mybatisplus.plugins.Page;
-import com.stylefeng.guns.common.persistence.model.Outbound;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.baomidou.mybatisplus.plugins.Page;
+import com.stylefeng.guns.common.persistence.dto.OutboundDto;
+import com.stylefeng.guns.common.persistence.model.Outbound;
 import com.stylefeng.guns.common.persistence.model.OutboundDetail;
 import org.apache.ibatis.annotations.Param;
 
@@ -28,4 +29,6 @@ public interface OutboundMapper extends BaseMapper<Outbound> {
     Outbound loadById(@Param("id") Integer id);
 
     int deleteDetail(@Param("outboundId") Integer outboundId);
+
+    List<OutboundDto> getOutboundDtoList(Map map);
 }

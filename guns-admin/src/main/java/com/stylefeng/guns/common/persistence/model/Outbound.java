@@ -3,6 +3,7 @@ package com.stylefeng.guns.common.persistence.model;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.enums.IdType;
+import com.stylefeng.guns.core.util.GunDateUtil;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -96,6 +97,10 @@ public class Outbound extends Model<Outbound> {
 
     public Date getOutbounddate() {
         return outbounddate;
+    }
+
+    public String getOutbounddateStr() {
+        return GunDateUtil.getDateString(outbounddate);
     }
 
     public void setOutbounddate(Date outbounddate) {

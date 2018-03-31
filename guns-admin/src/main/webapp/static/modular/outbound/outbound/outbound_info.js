@@ -4,22 +4,22 @@
 var OutboundInfoDlg = {
     count: $("#itemSize").val(),
     itemTemplate: $("#itemTemplate").html(),
-    validateFields: {
-        customername: {
-            validators: {
-                notEmpty: {
-                    message: '客户单位名称不能为空'
-                }
-            }
-        },
-        outbounddate: {
-            validators: {
-                notEmpty: {
-                    message: '出库日期不能为空'
-                }
-            }
-        }
-    }
+    // validateFields: {
+    //     customername: {
+    //         validators: {
+    //             notEmpty: {
+    //                 message: '客户单位名称不能为空'
+    //             }
+    //         }
+    //     },
+    //     outbounddate: {
+    //         validators: {
+    //             notEmpty: {
+    //                 message: '出库日期不能为空'
+    //             }
+    //         }
+    //     }
+    // }
 };
 
 /**
@@ -92,13 +92,28 @@ OutboundInfoDlg.collectData = function () {
     this.detail = detail;
 };
 
+/**
+ * 验证数据是否为空
+ */
+// OutboundInfoDlg.validate = function () {
+//     $('#outboundInfoForm').data("bootstrapValidator").resetForm();
+//     $('#outboundInfoForm').bootstrapValidator('validate');
+//     return $("#outboundInfoForm").data('bootstrapValidator').isValid();
+// }
+
+
 
 /**
  * 提交添加
  */
 OutboundInfoDlg.addSubmit = function () {
     this.collectData();
-    if (!this.validate()) {
+    if (!this.customername) {
+        Feng.error("客户单位名称不能为空");
+        return;
+    }
+    if (!this.outbounddate) {
+        Feng.error("出库日期不能为空");
         return;
     }
     //提交信息
@@ -124,7 +139,12 @@ OutboundInfoDlg.addSubmit = function () {
  */
 OutboundInfoDlg.editSubmit = function () {
     this.collectData();
-    if (!this.validate()) {
+    if (!this.customername) {
+        Feng.error("客户单位名称不能为空");
+        return;
+    }
+    if (!this.outbounddate) {
+        Feng.error("出库日期不能为空");
         return;
     }
     var ajax = new $ax(Feng.ctxPath + "/outbound/update", function (data) {
@@ -144,3 +164,6 @@ OutboundInfoDlg.editSubmit = function () {
     ajax.set('detailStr', JSON.stringify(this.detail));
     ajax.start();
 };
+// $(function () {
+//     Feng.initValidator("outboundInfoForm", OutboundInfoDlg.validateFields);
+// });

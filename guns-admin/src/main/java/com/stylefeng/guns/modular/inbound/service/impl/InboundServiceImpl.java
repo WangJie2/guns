@@ -3,6 +3,7 @@ package com.stylefeng.guns.modular.inbound.service.impl;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.stylefeng.guns.common.persistence.dao.InboundMapper;
+import com.stylefeng.guns.common.persistence.dto.InboundDto;
 import com.stylefeng.guns.common.persistence.model.Inbound;
 import com.stylefeng.guns.common.persistence.model.InboundDetail;
 import com.stylefeng.guns.core.shiro.ShiroKit;
@@ -78,5 +79,10 @@ public class InboundServiceImpl extends ServiceImpl<InboundMapper, Inbound> impl
         detail.forEach(inboundDetail -> inboundDetail.setInboundid(inbound.getId()));
         inboundMapper.insertDetail(detail);
         return result;
+    }
+
+    @Override
+    public List<InboundDto> getInboundDtoList(Map map) {
+        return inboundMapper.getInboundDtoList(map);
     }
 }

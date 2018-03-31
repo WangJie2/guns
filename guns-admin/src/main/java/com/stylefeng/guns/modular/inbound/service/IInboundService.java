@@ -2,6 +2,7 @@ package com.stylefeng.guns.modular.inbound.service;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.IService;
+import com.stylefeng.guns.common.persistence.dto.InboundDto;
 import com.stylefeng.guns.common.persistence.model.Inbound;
 import com.stylefeng.guns.common.persistence.model.InboundDetail;
 
@@ -30,4 +31,6 @@ public interface IInboundService extends IService<Inbound> {
     int deleteInboundById(Integer inboundId);
 
     int updateInbound(Inbound inbound, List<InboundDetail> detail);
+
+    List<InboundDto> getInboundDtoList(Map map);
 }

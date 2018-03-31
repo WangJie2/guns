@@ -11,7 +11,8 @@ var InboundInfoDlg = {
     //                 message: '入库日期不能为空'
     //             }
     //         }
-    //     }
+    //     },
+    //     charger:{}
     // }
 };
 
@@ -88,11 +89,11 @@ InboundInfoDlg.collectData = function () {
 /**
  * 验证数据是否为空
  */
-InboundInfoDlg.validate = function () {
-    $('#inboundInfoForm').data("bootstrapValidator").resetForm();
-    $('#inboundInfoForm').bootstrapValidator('validate');
-    return $("#inboundInfoForm").data('bootstrapValidator').isValid();
-}
+// InboundInfoDlg.validate = function () {
+//     $('#inboundInfoForm').data("bootstrapValidator").resetForm();
+//     $('#inboundInfoForm').bootstrapValidator('validate');
+//     return $("#inboundInfoForm").data('bootstrapValidator').isValid();
+// }
 
 
 /**
@@ -100,7 +101,8 @@ InboundInfoDlg.validate = function () {
  */
 InboundInfoDlg.addSubmit = function () {
     this.collectData();
-    if (!this.validate()) {
+    if (!this.inbounddate) {
+        Feng.error("入库日期不能为空");
         return;
     }
     //提交信息
@@ -126,7 +128,8 @@ InboundInfoDlg.addSubmit = function () {
  */
 InboundInfoDlg.editSubmit = function () {
     this.collectData();
-    if (!this.validate()) {
+    if (!this.inbounddate) {
+        Feng.error("入库日期不能为空");
         return;
     }
     var ajax = new $ax(Feng.ctxPath + "/inbound/update", function (data) {
@@ -146,7 +149,7 @@ InboundInfoDlg.editSubmit = function () {
     ajax.set('detailStr', JSON.stringify(this.detail));
     ajax.start();
 };
-$(function () {
-    Feng.initValidator("inboundInfoForm", InboundInfoDlg.validateFields);
-});
+// $(function () {
+//     Feng.initValidator("inboundInfoForm", InboundInfoDlg.validateFields);
+// });
 

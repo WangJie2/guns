@@ -64,5 +64,24 @@
         delete from outbounddetail where outboundid = #{outboundId}
     </delete>
 
+    <select id="getOutboundDtoList" resultType="com.stylefeng.guns.common.persistence.dto.OutboundDto"
+            parameterType="map">
+        select i.*,id.materialno,id.materialname,id.unit,id.number,id.pinumber,id.jiannumber,u.name as createrName
+        from outbound i
+        left join outbounddetail id on i.id=id.outboundid
+        left join user u on u.id=i.creater
+        where 1 = 1
+        <if test="beginTime != null and beginTime !=''">
+            and i.createdate >= CONCAT(#{beginTime},' 00:00:00')
+        </if>
+        <if test="endTime != null and endTime != ''">
+            and CONCAT(#{endTime},' 23:59:59')>=i.createdate
+        </if>
+        <if test="outboundno != null and outboundno !=''">
+            and i.outboundno like CONCAT('%',#{outboundno},'%')
+        </if>
+        order by i.id
+    </select>
+
 
 </mapper>

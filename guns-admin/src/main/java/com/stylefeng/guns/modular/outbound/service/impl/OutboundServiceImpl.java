@@ -3,6 +3,7 @@ package com.stylefeng.guns.modular.outbound.service.impl;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.stylefeng.guns.common.persistence.dao.OutboundMapper;
+import com.stylefeng.guns.common.persistence.dto.OutboundDto;
 import com.stylefeng.guns.common.persistence.model.Outbound;
 import com.stylefeng.guns.common.persistence.model.OutboundDetail;
 import com.stylefeng.guns.core.shiro.ShiroKit;
@@ -78,5 +79,10 @@ public class OutboundServiceImpl extends ServiceImpl<OutboundMapper, Outbound> i
         detail.forEach(outboundDetail -> outboundDetail.setOutboundid(outbound.getId()));
         outboundMapper.insertDetail(detail);
         return result;
+    }
+
+    @Override
+    public List<OutboundDto> getOutboundDtoList(Map map) {
+        return outboundMapper.getOutboundDtoList(map);
     }
 }
