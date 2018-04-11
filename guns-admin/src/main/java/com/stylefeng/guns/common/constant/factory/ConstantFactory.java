@@ -36,6 +36,8 @@ public class ConstantFactory implements IConstantFactory {
     private UserMapper userMapper = SpringContextHolder.getBean(UserMapper.class);
     private MenuMapper menuMapper = SpringContextHolder.getBean(MenuMapper.class);
     private NoticeMapper noticeMapper = SpringContextHolder.getBean(NoticeMapper.class);
+    private InboundMapper inboundMapper = SpringContextHolder.getBean(InboundMapper.class);
+    private OutboundMapper outboundMapper = SpringContextHolder.getBean(OutboundMapper.class);
 
     public static IConstantFactory me() {
         return SpringContextHolder.getBean("constantFactory");
@@ -327,6 +329,26 @@ public class ConstantFactory implements IConstantFactory {
             parentDeptIds.add(Integer.valueOf(StrKit.removeSuffix(StrKit.removePrefix(s, "["), "]")));
         }
         return parentDeptIds;
+    }
+
+    @Override
+    public String getInboundno(Integer inboundId) {
+        Inbound inbound = inboundMapper.loadById(inboundId);
+        if (inbound != null) {
+            return inbound.getInboundno();
+        } else {
+            return "--";
+        }
+    }
+
+    @Override
+    public String getOutboundno(Integer outboundId) {
+        Outbound outbound = outboundMapper.loadById(outboundId);
+        if (outbound != null) {
+            return outbound.getOutboundno();
+        } else {
+            return "--";
+        }
     }
 
 

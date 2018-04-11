@@ -3,7 +3,9 @@ package com.stylefeng.guns.modular.inbound.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.toolkit.CollectionUtils;
+import com.stylefeng.guns.common.annotion.BussinessLog;
 import com.stylefeng.guns.common.annotion.Permission;
+import com.stylefeng.guns.common.constant.dictmap.InboundDict;
 import com.stylefeng.guns.common.constant.factory.PageFactory;
 import com.stylefeng.guns.common.exception.BizExceptionEnum;
 import com.stylefeng.guns.common.exception.BussinessException;
@@ -19,7 +21,10 @@ import com.stylefeng.guns.modular.system.warpper.InboundWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -69,6 +74,19 @@ public class InboundController extends BaseController {
         model.addAttribute("inboundDetail", inboundDetail);
         LogObjectHolder.me().set(inbound);
         return PREFIX + "inbound_edit.html";
+    }
+
+    /**
+     * 跳转到入库单打印
+     */
+    @RequestMapping("/inbound_print/{inboundId}")
+    public String inboundPrint(@PathVariable Integer inboundId, Model model) {
+        Inbound inbound = inboundService.loadById(inboundId);
+        model.addAttribute("inbound", inbound);
+        List<InboundDetail> inboundDetail = inboundService.selectDetail(inboundId);
+        model.addAttribute("inboundDetail", inboundDetail);
+        LogObjectHolder.me().set(inbound);
+        return PREFIX + "inbound_print.html";
     }
 
     /**
@@ -123,6 +141,7 @@ public class InboundController extends BaseController {
     /**
      * 删除入库单
      */
+    @BussinessLog(value = "删除入库单", key = "inboundId", dict = InboundDict.class)
     @RequestMapping(value = "/delete")
     @Permission
     @ResponseBody

@@ -1,0 +1,66 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div style="text-align: center">
+            <span style="font-size:18px;font-weight:bold"><input value="杭州俊鹏丝绸有限公司" type="text"
+                                                                 style="border: none;text-align: center;width: 400px"/></span>
+            <span style="position: absolute; right: 20px">NO.${inbound.inboundno}</span>
+            <br>
+            <span style="font-size:18px;font-weight:bold">原 料 入 库 单</span>
+            <br>
+            <div style="top: 0px;bottom: 0px;left: 0px;right: 0px;margin-left: auto;margin-right: auto;width:200px; height:2px; border-top:2px solid #999; clear:both;text-align:center"></div>
+            <div style="top: 0px;bottom: 0px;left: 0px;right: 0px;margin-left: auto;margin-right: auto;margin-top:5px;width:200px; height:2px; border-top:2px solid #999; clear:both;text-align:center"></div>
+            <br>
+            <div>
+                <span style="float: left;">入库日期：${inbound.inbounddateStr2}</span>
+                <center>
+                    <table border="1" cellspacing="0" cellpadding="0" style="width:100%;text-align:center">
+                        <tr style="height: 30px">
+                            <td style="width:16.6%"><b>品号</b></b></td>
+                            <td style="width:16.6%"><b>品名</b></td>
+                            <td style="width:16.6%"><b>计量单位</b></td>
+                            <td style="width:16.6%"><b>数量</b></td>
+                            <td style="width:16.6%"><b>匹数</b></td>
+                            <td style="width:16.6%"><b>件数</b></td>
+                        </tr>
+                        @for(item in inboundDetail){
+                        <tr style="height: 25px">
+                            <td>
+                                <span>${item.materialno}</span>
+                            </td>
+                            <td>
+                                <span>${item.materialname}</span>
+                            </td>
+                            <td>
+                                <span>${item.unit}</span>
+                            </td>
+                            <td>
+                                <span>${item.number}</span>
+                            </td>
+                            <td>
+                                <span>${item.pinumber}</span>
+                            </td>
+                            <td>
+                                <span>${item.jiannumber}</span>
+                            </td>
+                        </tr>
+                        @}
+                    </table>
+                </center>
+            </div>
+            <span style="float:left;">负责人：${inbound.charger}</span><span style="position:absolute;left:45%">进货经办人：${inbound.agent}</span><span
+                style="position:absolute;left: 78%;">仓库收货人：${inbound.receiver}</span>
+        </div>
+    </div>
+    <div class="row btn-group-m-t">
+        <div class="noprint" style="float: left;margin-left: 15px">
+            <#button btnCss="info" name="打印预览" id="print" icon="fa-print" clickFun="window.print()"/>
+        </div>
+    </div>
+    <style type="text/css" media="print">
+        .noprint {
+            display: none;
+        }
+    </style>
+    <script src="${ctxPath}/static/modular/inbound/inbound/inbound_info.js"></script>
+    @}

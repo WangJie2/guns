@@ -72,6 +72,23 @@ Inbound.openInboundDetail = function () {
 };
 
 /**
+ * 打开查看入库单打印界面
+ */
+Inbound.printInboundDetail = function () {
+    if (this.check()) {
+        var index = layer.open({
+            type: 2,
+            title: '入库单打印',
+            area: ['1000px', '480px'], //宽高
+            fix: false, //不固定
+            maxmin: true,
+            content: Feng.ctxPath + '/inbound/inbound_print/' + Inbound.seItem.id
+        });
+        this.layerIndex = index;
+    }
+};
+
+/**
  * 删除入库单
  */
 Inbound.delete = function () {

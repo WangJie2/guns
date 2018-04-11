@@ -103,6 +103,10 @@ public class Outbound extends Model<Outbound> {
         return GunDateUtil.getDateString(outbounddate);
     }
 
+    public String getOutbounddateStr2() {
+        return GunDateUtil.getDateString2(outbounddate);
+    }
+
     public void setOutbounddate(Date outbounddate) {
         this.outbounddate = outbounddate;
     }

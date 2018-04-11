@@ -113,4 +113,20 @@ public interface IConstantFactory {
      */
     List<Integer> getParentDeptIds(Integer deptid);
 
+    /**
+     * 获取入库单号
+     *
+     * @param inboundId
+     * @return
+     */
+    String getInboundno(Integer inboundId);
+
+    /**
+     * 获取出库单号
+     *
+     * @param outboundId
+     * @return
+     */
+    String getOutboundno(Integer outboundId);
+
 }

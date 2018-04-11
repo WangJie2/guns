@@ -104,6 +104,10 @@ public class Inbound extends Model<Inbound> {
         return GunDateUtil.getDateString(inbounddate);
     }
 
+    public String getInbounddateStr2() {
+        return GunDateUtil.getDateString2(inbounddate);
+    }
+
     public void setInbounddate(Date inbounddate) {
         this.inbounddate = inbounddate;
     }

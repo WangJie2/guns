@@ -37,6 +37,9 @@
                                 <i class="fa fa-file-excel-o"></i>&nbsp;导出
                             </a>
                             @}
+                            @if(shiro.hasPermission("/outbound/print")){
+                            <#button name="打印" icon="fa-print" clickFun="Outbound.printOutboundDetail()" space="true"/>
+                            @}
                         </div>
                         <#table id="OutboundTable"/>
                     </div>

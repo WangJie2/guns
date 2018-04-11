@@ -3,7 +3,9 @@ package com.stylefeng.guns.modular.outbound.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.toolkit.CollectionUtils;
+import com.stylefeng.guns.common.annotion.BussinessLog;
 import com.stylefeng.guns.common.annotion.Permission;
+import com.stylefeng.guns.common.constant.dictmap.factory.OutboundDict;
 import com.stylefeng.guns.common.constant.factory.PageFactory;
 import com.stylefeng.guns.common.exception.BizExceptionEnum;
 import com.stylefeng.guns.common.exception.BussinessException;
@@ -75,6 +77,19 @@ public class OutboundController extends BaseController {
     }
 
     /**
+     * 跳转到入库单打印
+     */
+    @RequestMapping("/outbound_print/{outboundId}")
+    public String inboundPrint(@PathVariable Integer outboundId, Model model) {
+        Outbound outbound = outboundService.loadById(outboundId);
+        model.addAttribute("outbound", outbound);
+        List<OutboundDetail> outboundDetail = outboundService.selectDetail(outboundId);
+        model.addAttribute("outboundDetail", outboundDetail);
+        LogObjectHolder.me().set(outbound);
+        return PREFIX + "outbound_print.html";
+    }
+
+    /**
      * 获取出库单列表
      */
     @RequestMapping(value = "/list")
@@ -126,6 +141,7 @@ public class OutboundController extends BaseController {
     /**
      * 删除出库单
      */
+    @BussinessLog(value = "删除出库单", key = "outboundId", dict = OutboundDict.class)
     @RequestMapping(value = "/delete")
     @Permission
     @ResponseBody
