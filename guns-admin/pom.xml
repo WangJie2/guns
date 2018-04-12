@@ -5,13 +5,13 @@
     <parent>
         <groupId>com.stylefeng</groupId>
         <artifactId>guns-parent</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.0</version>
         <relativePath>../guns-parent/pom.xml</relativePath>
     </parent>
 
     <groupId>com.stylefeng</groupId>
     <artifactId>guns-admin</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
 
     <name>guns-admin</name>
